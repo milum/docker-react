@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /home/node/app/node_modules # anonymous volume
+      - ~/src/udemy-docker/frontend:/home/node/app # bind mount this dir to /app in container
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /home/node/app/node_modules # anonymous volume
+      - ~/src/udemy-docker/frontend:/home/node/app # bind mount this dir to /app in container
+    command: ["npm", "run", "test"]
